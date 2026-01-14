@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Virtual Bookshelf</title>
+<meta name="description" content="A clean, responsive virtual bookshelf with clickable covers that link to purchase pages." />
+<style>
+    :root {
+        --bg: #f7f7fb;
+        --card: #ffffff;
+        --text: #1c1e21;
+        --muted: #6b7280;
+        --accent: #4f46e5;
+        --shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+        color: var(--text);
+        background: linear-gradient(180deg, #f4f6ff 0%, var(--bg) 100%);
+    }
+    header {
+        text-align: center;
+        padding: 32px 16px 16px;
+    }
+    header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2rem;
+        letter-spacing: 0.2px;
+    }
+    header p {
+        margin: 0;
+        color: var(--muted);
+    }
+    .controls {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: saturate(180%) blur(8px);
+        background: rgba(255,255,255,0.75);
+        box-shadow: var(--shadow);
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .controls input[type="text"], .controls select {
+        padding: 10px 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        min-width: 220px;
+        font-size: 15px;
+        background: #fff;
+    }
+    .controls input[type="text"]:focus, .controls select:focus {
+        outline: 2px solid var(--accent);
+        border-color: transparent;
+    }
+    .bookshelf {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 22px;
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto 48px auto;
+    }
+    .book {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 12px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .book:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    }
+    .book img {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+    }
+    .book-title {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .book-author {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 2px;
+    }
+    footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 24px; 
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>My Virtual Bookshelf</h1>
+    <p>Click any cover to open a purchase page in a new tab.</p>
+</header>
+
+<div class="controls" role="region" aria-label="Search and filter controls">
+    <input type="text" id="search" placeholder="Search by title or author…" aria-label="Search books" />
+    <select id="filter" aria-label="Filter by category">
+        <option value="all">All Categories</option>
+        <option value="fiction">Fiction</option>
+        <option value="non-fiction">Non-Fiction</option>
+        <option value="science">Science</option>
+        <option value="business">Business</option>
+        <option value="biography">Biography</option>
+    </select>
+</div>
+
+<div class="bookshelf" id="bookshelf">
+    <div class="book" data-category="fiction" data-title="The Aurora Secret" data-author="J. M. Kade">
+        <a href="https://books.example.com/aurora-secret" target="_blank" rel="noopener noreferrer" aria-label="Buy The Aurora Secret by J. M. Kade">
+            <img src="assets/covers/the-aurora-secret.jpg" alt="The Aurora Secret — J. M. Kade" loading="lazy"/>
+        </a>
+        <div class="book-title">The Aurora Secret</div>
+        <div class="book-author">J. M. Kade</div>
+    </div><div class="book" data-category="non-fiction" data-title="Mindful Minutes" data-author="A. Rivera">
+        <a href="https://books.example.com/mindful-minutes" target="_blank" rel="noopener noreferrer" aria-label="Buy Mindful Minutes by A. Rivera">
+            <img src="assets/covers/mindful-minutes.jpg" alt="Mindful Minutes — A. Rivera" loading="lazy"/>
+        </a>
+        <div class="book-title">Mindful Minutes</div>
+        <div class="book-author">A. Rivera</div>
+    </div><div class="book" data-category="science" data-title="Quantum Curiosities" data-author="Dr. L. Chen">
+        <a href="https://books.example.com/quantum-curiosities" target="_blank" rel="noopener noreferrer" aria-label="Buy Quantum Curiosities by Dr. L. Chen">
+            <img src="assets/covers/quantum-curiosities.jpg" alt="Quantum Curiosities — Dr. L. Chen" loading="lazy"/>
+        </a>
+        <div class="book-title">Quantum Curiosities</div>
+        <div class="book-author">Dr. L. Chen</div>
+    </div><div class="book" data-category="business" data-title="Leading with Clarity" data-author="Samir Patel">
+        <a href="https://books.example.com/leading-with-clarity" target="_blank" rel="noopener noreferrer" aria-label="Buy Leading with Clarity by Samir Patel">
+            <img src="assets/covers/leading-with-clarity.jpg" alt="Leading with Clarity — Samir Patel" loading="lazy"/>
+        </a>
+        <div class="book-title">Leading with Clarity</div>
+        <div class="book-author">Samir Patel</div>
+    </div><div class="book" data-category="non-fiction" data-title="Paths of Purpose" data-author="N. Duarte">
+        <a href="https://books.example.com/paths-of-purpose" target="_blank" rel="noopener noreferrer" aria-label="Buy Paths of Purpose by N. Duarte">
+            <img src="assets/covers/paths-of-purpose.jpg" alt="Paths of Purpose — N. Duarte" loading="lazy"/>
+        </a>
+        <div class="book-title">Paths of Purpose</div>
+        <div class="book-author">N. Duarte</div>
+    </div><div class="book" data-category="fiction" data-title="Ocean of Stars" data-author="I. Velasquez">
+        <a href="https://books.example.com/ocean-of-stars" target="_blank" rel="noopener noreferrer" aria-label="Buy Ocean of Stars by I. Velasquez">
+            <img src="assets/covers/ocean-of-stars.jpg" alt="Ocean of Stars — I. Velasquez" loading="lazy"/>
+        </a>
+        <div class="book-title">Ocean of Stars</div>
+        <div class="book-author">I. Velasquez</div>
+    </div><div class="book" data-category="non-fiction" data-title="The Art of Focus" data-author="R. Bennett">
+        <a href="https://books.example.com/the-art-of-focus" target="_blank" rel="noopener noreferrer" aria-label="Buy The Art of Focus by R. Bennett">
+            <img src="assets/covers/the-art-of-focus.jpg" alt="The Art of Focus — R. Bennett" loading="lazy"/>
+        </a>
+        <div class="book-title">The Art of Focus</div>
+        <div class="book-author">R. Bennett</div>
+    </div><div class="book" data-category="science" data-title="Data Demystified" data-author="Priya Nair">
+        <a href="https://books.example.com/data-demystified" target="_blank" rel="noopener noreferrer" aria-label="Buy Data Demystified by Priya Nair">
+            <img src="assets/covers/data-demystified.jpg" alt="Data Demystified — Priya Nair" loading="lazy"/>
+        </a>
+        <div class="book-title">Data Demystified</div>
+        <div class="book-author">Priya Nair</div>
+    </div><div class="book" data-category="biography" data-title="Roots & Wings" data-author="Elena Marin">
+        <a href="https://books.example.com/roots-and-wings" target="_blank" rel="noopener noreferrer" aria-label="Buy Roots & Wings by Elena Marin">
+            <img src="assets/covers/roots-and-wings.jpg" alt="Roots & Wings — Elena Marin" loading="lazy"/>
+        </a>
+        <div class="book-title">Roots & Wings</div>
+        <div class="book-author">Elena Marin</div>
+    </div>
+</div>
+
+<footer>
+    <small>Template by You · Built with HTML, CSS & JS · Placeholder covers included</small>
+</footer>
+
+<script>
+    const searchInput = document.getElementById('search');
+    const filterSelect = document.getElementById('filter');
+    const books = Array.from(document.querySelectorAll('.book'));
+
+    function normalize(str) {
+        return (str || '').toLowerCase();
+    }
+
+    function filterBooks() {
+        const q = normalize(searchInput.value);
+        const cat = filterSelect.value;
+        books.forEach(book => {
+            const title = normalize(book.dataset.title);
+            const author = normalize(book.dataset.author);
+            const bookCat = book.dataset.category;
+            const matchesText = !q || title.includes(q) || author.includes(q);
+            const matchesCat = cat === 'all' || bookCat === cat;
+            book.style.display = (matchesText && matchesCat) ? 'block' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterBooks);
+    filterSelect.addEventListener('change', filterBooks);
+</script>
+</body>
+</html>
